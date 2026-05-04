@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/CatalogService/">
+    <Project Path="src/CatalogService/CatalogService.Api/CatalogService.Api.csproj" />
+    <Project Path="src/CatalogService/CatalogService.Core/CatalogService.Core.csproj" />
+    <Project Path="src/CatalogService/CatalogService.Domain/CatalogService.Domain.csproj" />
+    <Project Path="src/CatalogService/CatalogService.Infrastructure.PostgreSQL/CatalogService.Infrastructure.PostgreSQL.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "Jsxy4EAVSv4=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\coder8\\BasketWise\\backend\\src\\CatalogService\\CatalogService.Domain\\CatalogService.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\coder8\\.nuget\\packages\\csharpfunctionalextensions\\3.6.0\\csharpfunctionalextensions.3.6.0.nupkg.sha512",
+    "C:\\Users\\coder8\\.nuget\\packages\\shared.sharedkernel\\1.0.1\\shared.sharedkernel.1.0.1.nupkg.sha512",
+    "C:\\Users\\coder8\\.nuget\\packages\\stylecop.analyzers\\1.2.0-beta.556\\stylecop.analyzers.1.2.0-beta.556.nupkg.sha512",
+    "C:\\Users\\coder8\\.nuget\\packages\\stylecop.analyzers.unstable\\1.2.0.556\\stylecop.analyzers.unstable.1.2.0.556.nupkg.sha512"
+  ],
+  "logs": []
+}
