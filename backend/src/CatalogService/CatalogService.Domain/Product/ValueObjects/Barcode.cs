@@ -7,7 +7,7 @@ public record Barcode
 {
     public string Value { get; init; }
 
-    private Product(string value)
+    private Barcode(string value)
     {
         Value = value;
     }
