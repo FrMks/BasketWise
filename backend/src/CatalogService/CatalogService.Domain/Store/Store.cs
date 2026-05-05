@@ -8,30 +8,30 @@ public sealed class Store
 {
     private Store() { }
 
-    private Store(Guid id, string name, string chainName, Location location)
+    private Store(Guid id, string name, Guid chainId, Location location)
     {
         Id = id;
         Name = name;
-        ChainName = chainName;
+        ChainId = chainId;
         Location = location;
     }
 
     public Guid Id { get; private set; }
 
-    public string Name { get; private set; }
+    public string Name { get; private set; } = default!;
 
-    public string ChainName { get; private set; }
+    public Guid ChainId { get; private set; }
 
     public Location Location { get; private set; } = default!;
 
-    public static Result<Store, Error> Create(Guid id, string name, string chainName, Location location)
+    public static Result<Store, Error> Create(Guid id, string name, Guid chainId, Location location)
     {
         if (string.IsNullOrWhiteSpace(name))
             return Error.Validation("store.name.empty", "Store name cannot be empty.");
 
-        if (string.IsNullOrWhiteSpace(chainName))
-            return Error.Validation("store.chain.name.empty", "Chain name cannot be empty.");
+        if (chainId == Guid.Empty)
+            return Error.Validation("store.chain.id.empty", "Chain identifier cannot be empty.");
 
-        return new Store(id, name, chainName, location);
+        return new Store(id, name, chainId, location);
     }
 }
