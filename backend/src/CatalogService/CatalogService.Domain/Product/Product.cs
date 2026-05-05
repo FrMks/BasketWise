@@ -8,23 +8,33 @@ public class Product
 {
     private Product() { }
 
-    private Product(Guid id, string name, string brand, Barcode barcode, Guid categoryId, string? description)
+    private Product(
+        Guid id,
+        string name,
+        string brand,
+        Barcode barcode,
+        Measurement measurement,
+        Guid categoryId,
+        string? description)
     {
         Id = id;
         Name = name;
         Brand = brand;
         Barcode = barcode;
+        Measurement = measurement;
         CategoryId = categoryId;
         Description = description;
     }
 
     public Guid Id { get; private set; }
 
-    public string Name { get; private set; }
+    public string Name { get; private set; } = default!;
 
-    public string Brand { get; private set; }
+    public string Brand { get; private set; } = default!;
 
-    public Barcode Barcode { get; private set; }
+    public Barcode Barcode { get; private set; } = default!;
+
+    public Measurement Measurement { get; private set; } = default!;
 
     public Guid CategoryId { get; private set; }
 
@@ -35,6 +45,7 @@ public class Product
         string name,
         string brand,
         Barcode barcode,
+        Measurement measurement,
         Guid categoryId,
         string? description)
     {
@@ -44,6 +55,6 @@ public class Product
         if (string.IsNullOrWhiteSpace(brand))
             return Error.Validation("product.brand.empty", "Brand cannot be empty.");
 
-        return new Product(id, name, brand, barcode, categoryId, description);
+        return new Product(id, name, brand, barcode, measurement, categoryId, description);
     }
 }
