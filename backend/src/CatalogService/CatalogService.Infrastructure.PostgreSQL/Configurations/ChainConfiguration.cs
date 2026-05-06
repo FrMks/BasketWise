@@ -17,7 +17,7 @@ public class ChainConfiguration : IEntityTypeConfiguration<Chain>
         builder.ToTable("chains");
 
         builder.HasKey(c => c.Id)
-            .HasName("pk_chain");
+            .HasName("pk_chains");
 
         builder.Property(c => c.Id)
             .HasColumnName("id")
@@ -35,6 +35,11 @@ public class ChainConfiguration : IEntityTypeConfiguration<Chain>
             .IsRequired();
 
         builder.Property(c => c.LogoUrl)
-            .HasColumnName("logo_url");
+            .HasColumnName("logo_url")
+            .HasMaxLength(Constants.Length500)
+            .IsRequired(false);
+
+        builder.HasIndex(c => c.Name)
+            .HasDatabaseName("ix_chains_name");
+        }
     }
-}
