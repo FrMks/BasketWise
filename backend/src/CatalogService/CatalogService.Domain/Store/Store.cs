@@ -1,3 +1,4 @@
+using CatalogService.Domain.Chain;
 using CSharpFunctionalExtensions;
 using Shared;
 using CatalogService.Domain.Store.ValueObjects;
@@ -8,7 +9,7 @@ public sealed class Store
 {
     private Store() { }
 
-    private Store(Guid id, string name, Guid chainId, Location location)
+    private Store(StoreId id, string name, ChainId chainId, Location location)
     {
         Id = id;
         Name = name;
@@ -16,20 +17,20 @@ public sealed class Store
         Location = location;
     }
 
-    public Guid Id { get; private set; }
+    public StoreId Id { get; private set; } = default!;
 
     public string Name { get; private set; } = default!;
 
-    public Guid ChainId { get; private set; }
+    public ChainId ChainId { get; private set; } = default!;
 
     public Location Location { get; private set; } = default!;
 
-    public static Result<Store, Error> Create(Guid id, string name, Guid chainId, Location location)
+    public static Result<Store, Error> Create(StoreId id, string name, ChainId chainId, Location location)
     {
         if (string.IsNullOrWhiteSpace(name))
             return Error.Validation("store.name.empty", "Store name cannot be empty.");
 
-        if (chainId == Guid.Empty)
+        if (chainId == ChainId.Empty())
             return Error.Validation("store.chain.id.empty", "Chain identifier cannot be empty.");
 
         return new Store(id, name, chainId, location);

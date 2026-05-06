@@ -7,18 +7,18 @@ public class Chain
 {
     private Chain() { }
 
-    private Chain(Guid id, string name, string? logoUrl)
+    private Chain(ChainId id, string name, string? logoUrl)
     {
         Id = id;
         Name = name;
         LogoUrl = logoUrl;
     }
 
-    public Guid Id { get; private set; }
+    public ChainId Id { get; private set; } = default!;
     public string Name { get; private set; } = default!;
     public string? LogoUrl { get; private set; }
 
-    public static Result<Chain, Error> Create(Guid id, string name, string? logoUrl = null)
+    public static Result<Chain, Error> Create(ChainId id, string name, string? logoUrl = null)
     {
         if (string.IsNullOrWhiteSpace(name))
             return Error.Validation("chain.name.empty", "Chain name cannot be empty.");

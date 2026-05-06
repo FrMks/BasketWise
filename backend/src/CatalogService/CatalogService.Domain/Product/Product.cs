@@ -1,3 +1,4 @@
+using CatalogService.Domain.Category;
 using CatalogService.Domain.Product.ValueObjects;
 using CSharpFunctionalExtensions;
 using Shared;
@@ -9,12 +10,12 @@ public class Product
     private Product() { }
 
     private Product(
-        Guid id,
+        ProductId id,
         string name,
         string brand,
         Barcode barcode,
         Measurement measurement,
-        Guid categoryId,
+        CategoryId categoryId,
         string? description)
     {
         Id = id;
@@ -26,7 +27,7 @@ public class Product
         Description = description;
     }
 
-    public Guid Id { get; private set; }
+    public ProductId Id { get; private set; } = default!;
 
     public string Name { get; private set; } = default!;
 
@@ -36,17 +37,17 @@ public class Product
 
     public Measurement Measurement { get; private set; } = default!;
 
-    public Guid CategoryId { get; private set; }
+    public CategoryId CategoryId { get; private set; } = default!;
 
     public string? Description { get; private set; }
 
     public static Result<Product, Error> Create(
-        Guid id,
+        ProductId id,
         string name,
         string brand,
         Barcode barcode,
         Measurement measurement,
-        Guid categoryId,
+        CategoryId categoryId,
         string? description)
     {
         if (string.IsNullOrWhiteSpace(name))
