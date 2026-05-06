@@ -1,4 +1,4 @@
-namespace CatalogService.Domain.Store;
+namespace CatalogService.Domain.Store.ValueObjects;
 
 public record StoreId
 {

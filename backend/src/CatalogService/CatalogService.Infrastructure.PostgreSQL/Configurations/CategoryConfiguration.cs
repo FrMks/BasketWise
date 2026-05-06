@@ -1,4 +1,5 @@
 using CatalogService.Domain.Category;
+using CatalogService.Domain.Category.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -24,12 +25,12 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
             .HasConversion(
                 name => name.Value,
                 value => CategoryName.Create(value).Value)
-            .HasMaxLength(CategoryConstraints.Length100)
+            .HasMaxLength(Constants.Length100)
             .IsRequired();
 
         builder.Property(c => c.Description)
             .HasColumnName("description")
-            .HasMaxLength(CategoryConstraints.Length500)
+            .HasMaxLength(Constants.Length500)
             .IsRequired(false);
 
         // 1. В базу: EF смотрит на свойство ParentCategoryId. Если оно null (категория верхнего

@@ -1,7 +1,7 @@
 using CSharpFunctionalExtensions;
 using Shared;
 
-namespace CatalogService.Domain.Category;
+namespace CatalogService.Domain.Category.ValueObjects;
 
 public record CategoryName
 {
@@ -19,8 +19,8 @@ public record CategoryName
 
         var trimmedName = name.Trim();
 
-        if (trimmedName.Length < CategoryConstraints.Length2 || trimmedName.Length > CategoryConstraints.Length100)
-            return Error.Validation("category.name.invalid.length", $"Category name must be between {CategoryConstraints.Length2} and {CategoryConstraints.Length100} characters.");
+        if (trimmedName.Length < Constants.Length2 || trimmedName.Length > Constants.Length100)
+            return Error.Validation("category.name.invalid.length", $"Category name must be between {Constants.Length2} and {Constants.Length100} characters.");
 
         return new CategoryName(trimmedName);
     }

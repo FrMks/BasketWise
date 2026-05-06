@@ -1,3 +1,4 @@
+using CatalogService.Domain.Chain.ValueObjects;
 using CSharpFunctionalExtensions;
 using Shared;
 

@@ -1,4 +1,4 @@
-namespace CatalogService.Domain.Chain;
+namespace CatalogService.Domain.Chain.ValueObjects;
 
 public record ChainId
 {

@@ -1,3 +1,4 @@
+using CatalogService.Domain.Category.ValueObjects;
 using CSharpFunctionalExtensions;
 using Shared;
 
@@ -27,8 +28,8 @@ public class Category
         string? description,
         CategoryId? parentCategoryId = null)
     {
-        if (description?.Length > CategoryConstraints.Length500)
-            return Error.Validation("category.description.too.long", $"Category description cannot exceed {CategoryConstraints.Length500} characters.");
+        if (description?.Length > Constants.Length500)
+            return Error.Validation("category.description.too.long", $"Category description cannot exceed {Constants.Length500} characters.");
 
         return new Category(id, name, description, parentCategoryId);
     }

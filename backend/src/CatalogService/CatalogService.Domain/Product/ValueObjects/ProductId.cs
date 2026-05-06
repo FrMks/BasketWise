@@ -1,4 +1,4 @@
-namespace CatalogService.Domain.Product;
+namespace CatalogService.Domain.Product.ValueObjects;
 
 public record ProductId
 {

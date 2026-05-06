@@ -1,4 +1,4 @@
-using CatalogService.Domain.Category;
+using CatalogService.Domain.Category.ValueObjects;
 using CatalogService.Domain.Product.ValueObjects;
 using CSharpFunctionalExtensions;
 using Shared;

@@ -1,7 +1,7 @@
-using CatalogService.Domain.Chain;
 using CSharpFunctionalExtensions;
 using Shared;
 using CatalogService.Domain.Store.ValueObjects;
+using CatalogService.Domain.Chain.ValueObjects;
 
 namespace CatalogService.Domain.Store;
 
