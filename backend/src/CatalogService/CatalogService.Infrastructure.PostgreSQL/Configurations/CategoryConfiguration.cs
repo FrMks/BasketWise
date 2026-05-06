@@ -32,6 +32,12 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
             .HasMaxLength(CategoryConstraints.Length500)
             .IsRequired(false);
 
+        // 1. В базу: EF смотрит на свойство ParentCategoryId. Если оно null (категория верхнего
+        //     уровня), он записывает null в колонку Postgres. Если там сидит объект CategoryId, он берет
+        //     его внутреннее поле .Value (которое является Guid) и записывает его.
+        // 2. Из базы: EF читает ячейку. Если там null, он кладет null в свойство C#. Если там лежит
+        //     Guid, он вызывает ваш метод CategoryId.FromValue(guid), создает новый объект-ID и кладет
+        //     его в свойство.
         builder.Property(c => c.ParentCategoryId)
             .HasColumnName("parent_category_id")
             .HasConversion(
@@ -41,10 +47,10 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
 
 
         // Hierarchical relationship (Self-reference)
-        builder.HasOne<Category>()
-            .WithMany()
-            .HasForeignKey(c => c.ParentCategoryId)
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne<Category>() // У категории есть ОДИН родитель
+            .WithMany() // У этого родителя может быть МНОГО детей
+            .HasForeignKey(c => c.ParentCategoryId) // Связь идет через колонку
+            .OnDelete(DeleteBehavior.Restrict); // Restrict - нельзя удалить родителя, когда у него есть дети
         
         // Index for faster lookups by name
         builder.HasIndex(c => c.Name);
