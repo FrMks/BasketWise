@@ -8,7 +8,7 @@ public class Category
     private Category() { }
 
     // Full constructor for internal use
-    private Category(CategoryId id, string name, string? description, CategoryId? parentCategoryId)
+    private Category(CategoryId id, CategoryName name, string? description, CategoryId? parentCategoryId)
     {
         Id = id;
         Name = name;
@@ -17,21 +17,18 @@ public class Category
     }
 
     public CategoryId Id { get; private set; } = default!;
-    public string Name { get; private set; } = default!;
+    public CategoryName Name { get; private set; } = default!;
     public string? Description { get; private set; }
     public CategoryId? ParentCategoryId { get; private set; }
 
     public static Result<Category, Error> Create(
         CategoryId id,
-        string name,
+        CategoryName name,
         string? description,
         CategoryId? parentCategoryId = null)
     {
-        if (string.IsNullOrWhiteSpace(name))
-            return Error.Validation("category.name.empty", "Category name cannot be empty.");
-
-        if (name.Length > 100)
-            return Error.Validation("category.name.too.long", "Category name cannot exceed 100 characters.");
+        if (description?.Length > 500)
+            return Error.Validation("category.description.too.long", "Category description cannot exceed 500 characters.");
 
         return new Category(id, name, description, parentCategoryId);
     }
