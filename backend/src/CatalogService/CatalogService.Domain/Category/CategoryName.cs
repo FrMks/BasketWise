@@ -19,8 +19,8 @@ public record CategoryName
 
         var trimmedName = name.Trim();
 
-        if (trimmedName.Length is < 2 or > 100)
-            return Error.Validation("category.name.invalid.length", "Category name must be between 2 and 100 characters.");
+        if (trimmedName.Length < CategoryConstraints.Length2 || trimmedName.Length > CategoryConstraints.Length100)
+            return Error.Validation("category.name.invalid.length", $"Category name must be between {CategoryConstraints.Length2} and {CategoryConstraints.Length100} characters.");
 
         return new CategoryName(trimmedName);
     }

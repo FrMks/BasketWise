@@ -27,8 +27,8 @@ public class Category
         string? description,
         CategoryId? parentCategoryId = null)
     {
-        if (description?.Length > 500)
-            return Error.Validation("category.description.too.long", "Category description cannot exceed 500 characters.");
+        if (description?.Length > CategoryConstraints.Length500)
+            return Error.Validation("category.description.too.long", $"Category description cannot exceed {CategoryConstraints.Length500} characters.");
 
         return new Category(id, name, description, parentCategoryId);
     }
