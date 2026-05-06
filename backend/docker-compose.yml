@@ -1,5 +1,6 @@
 services:
   catalog-service:
+    container_name: basketwise-catalog-api
     build:
       context: .
       dockerfile: src/Dockerfile
@@ -10,12 +11,12 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: http://+:8080
-      ConnectionStrings__CatalogServiceDb: Server=postgres;Port=5432;Database=catalog_service_db;User Id=postgres;Password=postgres;
-      ConnectionStrings__Seq: http://seq:5341
-      ConnectionStrings__Redis: redis:6379
-      Swagger__ServerUrl: http://localhost:8080
+      ConnectionStrings__CatalogServiceDb: Server=basketwise-postgres;Port=5432;Database=catalog_service_db;User Id=postgres;Password=postgres;
+      ConnectionStrings__Seq: http://basketwise-seq:5341
+      ConnectionStrings__Redis: basketwise-redis:6379
+      Swagger__ServerUrl: http://localhost:8085
     ports:
-      - "8080:8080"
+      - "8085:8080"
     depends_on:
       postgres:
         condition: service_healthy
@@ -25,6 +26,7 @@ services:
         condition: service_started
 
   postgres:
+    container_name: basketwise-postgres
     image: postgres:17
     restart: unless-stopped
     environment:
@@ -32,9 +34,9 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5434:5432"
+      - "5444:5432"
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - basketwise-postgres-data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d catalog_service_db"]
       interval: 5s
@@ -43,6 +45,7 @@ services:
       start_period: 10s
 
   seq:
+    container_name: basketwise-seq
     image: datalust/seq:latest
     restart: unless-stopped
     environment:
@@ -50,17 +53,18 @@ services:
       SEQ_FIRSTRUN_ADMINUSERNAME: "admin"
       SEQ_FIRSTRUN_ADMINPASSWORD: "YourStrong!Pass1"
     ports:
-      - "8082:80"
-      - "5431:5341"
+      - "8092:80"
+      - "5441:5341"
     volumes:
-      - seq-data:/data
+      - basketwise-seq-data:/data
 
   redis:
+    container_name: basketwise-redis
     image: redis:alpine
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - "6389:6379"
 
 volumes:
-  postgres-data:
-  seq-data:
+  basketwise-postgres-data:
+  basketwise-seq-data:
