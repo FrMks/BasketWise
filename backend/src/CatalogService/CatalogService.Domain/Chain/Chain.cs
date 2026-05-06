@@ -8,7 +8,7 @@ public class Chain
 {
     private Chain() { }
 
-    private Chain(ChainId id, string name, string? logoUrl)
+    private Chain(ChainId id, ChainName name, string? logoUrl)
     {
         Id = id;
         Name = name;
@@ -16,25 +16,16 @@ public class Chain
     }
 
     public ChainId Id { get; private set; } = default!;
-    public string Name { get; private set; } = default!;
+    public ChainName Name { get; private set; } = default!;
     public string? LogoUrl { get; private set; }
 
-    public static Result<Chain, Error> Create(ChainId id, string name, string? logoUrl = null)
+    public static Result<Chain, Error> Create(ChainId id, ChainName name, string? logoUrl = null)
     {
-        if (string.IsNullOrWhiteSpace(name))
-            return Error.Validation("chain.name.empty", "Chain name cannot be empty.");
-
-        if (name.Length > 100)
-            return Error.Validation("chain.name.too.long", "Chain name cannot exceed 100 characters.");
-
         return new Chain(id, name, logoUrl);
     }
 
-    public Result<Chain, Error> Update(string name, string? logoUrl)
+    public Result<Chain, Error> Update(ChainName name, string? logoUrl)
     {
-        if (string.IsNullOrWhiteSpace(name))
-            return Error.Validation("chain.name.empty", "Chain name cannot be empty.");
-
         Name = name;
         LogoUrl = logoUrl;
 

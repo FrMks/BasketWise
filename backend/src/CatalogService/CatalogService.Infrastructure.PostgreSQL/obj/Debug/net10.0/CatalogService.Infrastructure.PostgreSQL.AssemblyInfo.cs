@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CatalogService.Infrastructure.PostgreSQL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0dd5373526636cbada614071891874100420026a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9066a227167ac5d22ea489ab7052bd1378347884")]
 [assembly: System.Reflection.AssemblyProductAttribute("CatalogService.Infrastructure.PostgreSQL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CatalogService.Infrastructure.PostgreSQL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
