@@ -13,27 +13,32 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
         builder.HasKey(c => c.Id);
 
         builder.Property(c => c.Id)
+            .HasColumnName("id")
             .HasConversion(
                 id => id.Value,
                 value => CategoryId.FromValue(value))
             .ValueGeneratedNever();
 
         builder.Property(c => c.Name)
+            .HasColumnName("name")
             .HasConversion(
                 name => name.Value,
                 value => CategoryName.Create(value).Value)
-            .HasMaxLength(CategoryConstraints.MaxNameLength)
+            .HasMaxLength(CategoryConstraints.Length100)
             .IsRequired();
 
         builder.Property(c => c.Description)
-            .HasMaxLength(CategoryConstraints.MaxDescriptionLength)
+            .HasColumnName("description")
+            .HasMaxLength(CategoryConstraints.Length500)
             .IsRequired(false);
 
         builder.Property(c => c.ParentCategoryId)
+            .HasColumnName("parent_category_id")
             .HasConversion(
                 id => id == null ? (Guid?)null : id.Value,
                 value => value == null ? null : CategoryId.FromValue(value.Value))
             .IsRequired(false);
+
 
         // Hierarchical relationship (Self-reference)
         builder.HasOne<Category>()
