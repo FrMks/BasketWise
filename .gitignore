@@ -55,6 +55,14 @@ mono_crash.*
 *.config
 *.xml
 *.log
+*.cache
+*.temp
+*.tmp
+*.bak
+*.swp
+*.[Cc]ache
+[Tt]mp/
+[Tt]emp/
 
 # NuGet Packages
 *.nupkg

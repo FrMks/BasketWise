@@ -1,3 +1,4 @@
+using CatalogService.Domain.Category;
 using CSharpFunctionalExtensions;
 using Shared;
 
@@ -14,7 +15,7 @@ public record Barcode
 
     public static Result<Barcode, Error> Create(string value)
     {
-        if (value.Length != 13)
+        if (value.Length != Constants.Length13)
             return Error.Validation("barcode.not.correct.lenght", "Barcode should be 13 digits.");
 
         if (!value.All(char.IsDigit))
