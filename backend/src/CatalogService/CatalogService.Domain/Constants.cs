@@ -1,4 +1,4 @@
-namespace CatalogService.Domain.Category;
+namespace CatalogService.Domain;
 
 public static class Constants
 {

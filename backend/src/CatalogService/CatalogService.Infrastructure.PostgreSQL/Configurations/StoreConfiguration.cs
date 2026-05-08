@@ -72,13 +72,11 @@ public class StoreConfiguration : IEntityTypeConfiguration<Store>
             .HasForeignKey(s => s.ChainId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder
-            .HasIndex(s => s.Name)
-            .IsUnique()
-            .HasDatabaseName("ux_store_name");
+        // ИНДЕКСЫ
+        builder.HasIndex(s => s.Name)
+            .HasDatabaseName("ix_stores_name");
 
-        builder.HasIndex(s => s.Name).HasDatabaseName("ix_stores_name");
-        
-        builder.HasIndex(s => s.ChainId).HasDatabaseName("ix_stores_chain_id");
-    }
-}
+        builder.HasIndex(s => s.ChainId)
+            .HasDatabaseName("ix_stores_chain_id");
+        }
+        }
