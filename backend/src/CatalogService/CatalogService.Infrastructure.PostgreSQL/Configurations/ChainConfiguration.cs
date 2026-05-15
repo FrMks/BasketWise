@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CatalogService.Domain.Category;
+using CatalogService.Domain;
 using CatalogService.Domain.Chain;
 using CatalogService.Domain.Chain.ValueObjects;
 using Microsoft.EntityFrameworkCore;

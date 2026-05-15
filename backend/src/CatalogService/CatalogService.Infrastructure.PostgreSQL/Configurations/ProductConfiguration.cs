@@ -1,5 +1,6 @@
 using CatalogService.Domain.Category;
 using CatalogService.Domain.Category.ValueObjects;
+using CatalogService.Domain;
 using CatalogService.Domain.Product;
 using CatalogService.Domain.Product.ValueObjects;
 using Microsoft.EntityFrameworkCore;

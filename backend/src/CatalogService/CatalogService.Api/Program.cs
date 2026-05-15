@@ -1,23 +1,43 @@
 using CatalogService.Api;
+using CatalogService.Core.Database;
+using CatalogService.Infrastructure.PostgreSQL;
 using Serilog;
 using Serilog.Events;
+using Shared.Core.Database;
 using Shared.Framework.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddProgramDependencies(builder.Configuration);
+if (File.Exists(".env"))
+{
+    foreach (var line in File.ReadAllLines(".env"))
+    {
+        var parts = line.Split('=', 2);
+        if (parts.Length == 2)
+            Environment.SetEnvironmentVariable(parts[0], parts[1]);
+    }
+}
+
+var seqUrl = Environment.GetEnvironmentVariable("Seq")
+    ?? throw new ArgumentException("Seq missing");
+var connectionString = Environment.GetEnvironmentVariable("CatalogServiceDb")
+    ?? throw new ArgumentException("CatalogServiceDb environment variable is missing");
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
-    .WriteTo.Debug()
-    .WriteTo.Seq(builder.Configuration.GetConnectionString("Seq")
-                 ?? throw new ArgumentNullException("Seq"))
-    .MinimumLevel.Override("Microsoft.AspNetCore.Hosting", LogEventLevel.Warning)
-    .MinimumLevel.Override("Microsoft.AspNetCore.Mvc", LogEventLevel.Warning)
-    .MinimumLevel.Override("Microsoft.AspNetCore.Routing", LogEventLevel.Warning)
+    .WriteTo.Seq(seqUrl)
     .CreateLogger();
 
 builder.Host.UseSerilog();
+
+builder.Services.AddProgramDependencies(builder.Configuration);
+
+builder.Services.AddScoped<CatalogServiceDbContext>(_ =>
+    new CatalogServiceDbContext(connectionString));
+builder.Services.AddScoped<IReadDbContext, CatalogServiceDbContext>(_ =>
+    new CatalogServiceDbContext(connectionString));
+builder.Services.AddScoped<IDbConnectionFactory, CatalogServiceDbContext>(_ =>
+    new CatalogServiceDbContext(connectionString));
 
 var app = builder.Build();
 

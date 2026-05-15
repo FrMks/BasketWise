@@ -11,9 +11,16 @@ namespace CatalogService.Infrastructure.PostgreSQL;
 
 public class CatalogServiceDbContext : DbContext, IReadDbContext, IDbConnectionFactory
 {
-    public CatalogServiceDbContext(DbContextOptions<CatalogServiceDbContext> options)
-        : base(options)
+    private readonly string _connectionString;
+
+    public CatalogServiceDbContext(string connectionString)
     {
+        _connectionString = connectionString;
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseNpgsql(_connectionString);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

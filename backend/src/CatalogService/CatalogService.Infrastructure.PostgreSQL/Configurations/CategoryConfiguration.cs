@@ -1,3 +1,4 @@
+using CatalogService.Domain;
 using CatalogService.Domain.Category;
 using CatalogService.Domain.Category.ValueObjects;
 using Microsoft.EntityFrameworkCore;
