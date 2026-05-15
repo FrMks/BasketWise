@@ -1,5 +1,5 @@
 using CatalogService.Core;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Shared;
 
 namespace CatalogService.Api;

@@ -1,3 +1,5 @@
+using CatalogService.Domain.Category;
+using CatalogService.Domain.Category.ValueObjects;
 using CatalogService.Domain.Product.ValueObjects;
 using CSharpFunctionalExtensions;
 using Shared;
@@ -9,12 +11,12 @@ public class Product
     private Product() { }
 
     private Product(
-        Guid id,
-        string name,
-        string brand,
+        ProductId id,
+        ProductName name,
+        Brand brand,
         Barcode barcode,
         Measurement measurement,
-        Guid categoryId,
+        CategoryId categoryId,
         string? description)
     {
         Id = id;
@@ -26,34 +28,31 @@ public class Product
         Description = description;
     }
 
-    public Guid Id { get; private set; }
+    public ProductId Id { get; private set; } = default!;
 
-    public string Name { get; private set; } = default!;
+    public ProductName Name { get; private set; } = default!;
 
-    public string Brand { get; private set; } = default!;
+    public Brand Brand { get; private set; } = default!;
 
     public Barcode Barcode { get; private set; } = default!;
 
     public Measurement Measurement { get; private set; } = default!;
 
-    public Guid CategoryId { get; private set; }
+    public CategoryId CategoryId { get; private set; } = default!;
 
     public string? Description { get; private set; }
 
     public static Result<Product, Error> Create(
-        Guid id,
-        string name,
-        string brand,
+        ProductId id,
+        ProductName name,
+        Brand brand,
         Barcode barcode,
         Measurement measurement,
-        Guid categoryId,
+        CategoryId categoryId,
         string? description)
     {
-        if (string.IsNullOrWhiteSpace(name))
-            return Error.Validation("product.name.empty", "Product name cannot be empty.");
-
-        if (string.IsNullOrWhiteSpace(brand))
-            return Error.Validation("product.brand.empty", "Brand cannot be empty.");
+        if (description?.Length > Constants.Length500)
+            return Error.Validation("product.description.too.long", $"Product description cannot exceed {Constants.Length500} characters.");
 
         return new Product(id, name, brand, barcode, measurement, categoryId, description);
     }

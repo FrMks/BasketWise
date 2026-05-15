@@ -10,8 +10,8 @@ public static class DependencyInjection
     public static IServiceCollection AddCore(this IServiceCollection services, IConfiguration configuration)
     {
         var assembly = typeof(DependencyInjection).Assembly;
-        var redisConnectionString = configuration.GetConnectionString("Redis")
-            ?? throw new ArgumentNullException("ConnectionStrings:Redis");
+        var redisConnectionString = Environment.GetEnvironmentVariable("Redis")
+            ?? throw new ArgumentException("Redis connection string is missig");
 
         services.Scan(scan => scan.FromAssemblies(assembly)
             .AddClasses(classes => classes
